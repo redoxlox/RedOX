@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - Perplexity Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0A1939, #00225F);
+            color: white;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* نموذج تسجيل الدخول */
+        #login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        #login-form input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        #login-form button {
+            background: linear-gradient(90deg, #4A7AFF, #00C2FF);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        #login-form button:hover {
+            transform: scale(1.05);
+        }
+
+        #login-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 0, 0, 0.2);
+            color: #FF4A4A;
+            min-height: 20px;
+        }
+
+        /* محتوى اللوحة (مخفي حتى الدخول) */
+        #admin-panel {
+            display: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #4A7AFF, #00C2FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4A7AFF;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        .messages-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-right: 4px solid #4A7AFF;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .message-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .message-date {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .message-email {
+            color: #00C2FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-type {
+            background: #4A7AFF;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-text {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(90deg, #4A7AFF, #00C2FF);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .logout-btn {
+            background: #FF4A4A;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            float: left;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- نموذج تسجيل الدخول (يظهر أولاً) -->
+        <div id="login-form">
+            <h1>🔐 تسجيل الدخول - لوحة التحكم</h1>
+            <form id="adminLoginForm">
+                <input type="text" id="username" placeholder="اسم المستخدم (admin)" required>
+                <input type="password" id="password" placeholder="كلمة المرور (Admin123)" required>
+                <button type="submit">دخول</button>
+            </form>
+            <div id="login-message"></div>
+        </div>
+
+        <!-- محتوى اللوحة (مخفي حتى الدخول) -->
+        <div id="admin-panel">
+            <button class="logout-btn" onclick="logout()">خروج</button>
+            <h1>📊 لوحة التحكم - Perplexity Pro</h1>
+            <button class="refresh-btn" onclick="loadData()">🔄 تحديث البيانات</button>
+
+            <div class="stats" id="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-messages">-</div>
+                    <div class="stat-label">إجمالي الرسائل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="today-messages">-</div>
+                    <div class="stat-label">رسائل اليوم</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="regular-subs">-</div>
+                    <div class="stat-label">اشتراكات عامة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="student-subs">-</div>
+                    <div class="stat-label">اشتراكات طلاب</div>
+                </div>
+            </div>
+
+            <div class="messages-section">
+                <h2>📧 الرسائل الأخيرة</h2>
+                <div id="messages" class="loading">⏳ جاري تحميل الرسائل...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JS لتسجيل الدخول
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('login-message');
+            
+            messageDiv.textContent = 'جاري التحقق...';
+            messageDiv.style.background = 'rgba(0, 255, 0, 0.2)';
+            messageDiv.style.color = '#00FF00';
+            
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('admin-panel').style.display = 'block';
+                    messageDiv.textContent = 'تم تسجيل الدخول بنجاح!';
+                    loadData();  // حمل البيانات تلقائياً بعد الدخول
+                } else {
+                    messageDiv.textContent = data.message || 'خطأ في تسجيل الدخول';
+                    messageDiv.style.background = 'rgba(255, 0, 0, 0.2)';
+                    messageDiv.style.color = '#FF4A4A';
+                }
+            } catch (error) {
+                messageDiv.textContent = 'خطأ في الاتصال: ' + error.message;
+                messageDiv.style.background = 'rgba(255, 0, 0, 0.2)';
+                messageDiv.style.color = '#FF4A4A';
+            }
+        });
+
+        // دالة تحميل البيانات (بعد الدخول)
+        async function loadData() {
+            try {
+                // جلب الإحصائيات
+                const statsResponse = await fetch('/api/stats');
+                const statsData = await statsResponse.json();
+
+                if (statsData.success) {
+                    document.getElementById('total-messages').textContent = statsData.stats.total_messages;
+                    document.getElementById('today-messages').textContent = statsData.stats.today_messages;
+                    document.getElementById('regular-subs').textContent = statsData.stats.regular_subscriptions;
+                    document.getElementById('student-subs').textContent = statsData.stats.student_subscriptions;
+                } else {
+                    console.error('Stats error:', statsData.message);
+                }
+
+                // جلب الرسائل
+                const messagesResponse = await fetch('/api/messages');
+                const messagesData = await messagesResponse.json();
+
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+
+                if (messagesData.success) {
+                    if (messagesData.messages.length === 0) {
+                        messagesDiv.innerHTML = '<p style="text-align: center; padding: 2rem;">لا توجد رسائل بعد</p>';
+                        return;
+                    }
+
+                    messagesData.messages.forEach(msg => {
+                        const messageCard = document.createElement('div');
+                        messageCard.className = 'message-card';
+                        messageCard.innerHTML = `
+                            <div class="message-header">
+                                <div class="message-name">👤 ${msg.name}</div>
+                                <div class="message-date">📅 ${new Date(msg.created_at).toLocaleString('ar')}</div>
+                            </div>
+                            <div class="message-email">✉️ ${msg.email}</div>
+                            <div class="message-type">💳 ${msg.subscription_type}</div>
+                            <div class="message-text">${msg.message || 'لا رسالة نصية'}</div>
+                        `;
+                        messagesDiv.appendChild(messageCard);
+                    });
+                } else {
+                    console.error('Messages error:', messagesData.message);
+                    messagesDiv.innerHTML = '<p style="color: #FF4A4A;">❌ خطأ في تحميل الرسائل: ' + messagesData.message + '</p>';
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('messages').innerHTML = '<p style="color: #FF4A4A;">❌ حدث خطأ في تحميل البيانات</p>';
+            }
+        }
+
+        // دالة الخروج
+        function logout() {
+            fetch('/api/admin/logout', { method: 'POST' }).then(() => {
+                document.getElementById('admin-panel').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('login-message').textContent = 'تم تسجيل الخروج';
+            });
+        }
+
+        // تحديث تلقائي كل 30 ثانية (بعد الدخول فقط)
+     //   let autoRefresh;
+      //  if (document.getElementById('admin-panel').style.display === 'block') {
+       //     autoRefresh = setInterval(loadData, 30000);//
+       // }
+
+
+
+
+
+
+
+
+
+       
+    </script>
+
+    
+</body>
+</html>

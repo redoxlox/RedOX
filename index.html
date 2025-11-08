@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perplexity Pro - اشتراكات حصرية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A1939;
+            --secondary: #00225F;
+            --accent: #4A7AFF;
+            --accent-secondary: #00C2FF;
+            --gold: #FFD700;
+            --white: #ffffff;
+            --text-light: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Floating Shapes Background */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-secondary);
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: var(--gold);
+            top: 50%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+
+        .shape:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            background: var(--secondary);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 15s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-50px, 50px) scale(0.9);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 25, 57, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+         .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+         /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .logo {
+            font-size: 0.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== Navbar Styling ===== */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 25, 57, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* عند التمرير للأسفل */
+#navbar.scrolled {
+    transform: translateY(0);
+    background: rgba(10, 25, 57, 0.98);
+    padding: 0.7rem 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* الاختفاء عند التمرير للأسفل */
+#navbar.hide {
+    transform: translateY(-100%);
+}
+
+
+
+
+
+ /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(74, 122, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+/* الظهور عند التمرير للأعلى */
+#navbar.show {
+    transform: translateY(0);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===== Logo Styling ===== */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    z-index: 1001;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(74, 122, 255, 0.3));
+}
+
+/* تأثير عند hover */
+.logo img:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 4px 12px rgba(74, 122, 255, 0.5));
+}
+
+/* حجم أصغر عند التمرير */
+#navbar.scrolled .logo img {
+    height: 40px;
+}
+
+/* ===== Navigation Links ===== */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+}
+
+/* خط تحت الرابط عند hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #4A7AFF, #00C2FF);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #804aff;
+    transform: translateY(-2px);
+}
+
+/* الرابط النشط */
+.nav-links a.active {
+    color: #00c2ff;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* ===== Mobile Menu Button ===== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* تأثير X عند فتح القائمة */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(10, 25, 57, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links a {
+        font-size: 1.3rem;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    #navbar.scrolled .logo img {
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0 1.5rem;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    #navbar.scrolled .logo img {
+        height: 30px;
+    }
+}
+
+
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 8rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 6rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(74, 122, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(74, 122, 255, 0.5);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Grid Layouts */
+        .features-grid,
+        .details-grid,
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.fade-up {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(74, 122, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Pricing Section */
+        .pricing-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--accent);
+            border-radius: 30px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+        }
+
+        .student-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .price-main {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .price-student {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .price-duration {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            text-align: right;
+            margin: 2rem 0;
+        }
+
+        .benefits-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefits-list i {
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Steps Section */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Audience Cards */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .audience-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(74, 122, 255, 0.2);
+        }
+
+        .audience-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Social Proof Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .testimonial-info h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: right;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-secondary);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(74, 122, 255, 0.3);
+        }
+
+        .contact-info {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(-5px);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-secondary);
+            width: 30px;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--white);
+            padding: 1.5rem 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            font-weight: 600;
+            font-size: 1.1rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: rgba(10, 25, 57, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                transition: right 0.3s ease;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                padding-top: 4rem;
+            }
+
+            .step {
+                flex-direction: column;
+            }
+
+            .features-grid,
+            .details-grid,
+            .stats-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation -->
+   <nav id="navbar">
+    <div class="nav-container">
+        <a href="#hero" class="logo">
+          <img src="static/Logo.png" alt="RedOx Logo" class="logo">  <!-- /Logo.jpg للـ route الجديد -->
+
+        </a>
+        
+        <!-- زر القائمة للموبايل -->
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero">الرئيسية</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#pricing">الأسعار</a></li>
+            <li><a href="#steps">كيف يعمل</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>اطلق العنان لقوة Perplexity Pro</h1>
+                <p>استمتع بأقوى نماذج الذكاء الاصطناعي مع وصول غير محدود - GPT-5، Claude Sonnet 4.5، Gemini Pro وأكثر!</p>
+                <a href="#contact" class="cta-button">احصل على اشتراكك الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>مميزات Perplexity Pro</h2>
+                <p>اكتشف القوة الكاملة للذكاء الاصطناعي</p>
+            </div>
+            <div class="features-grid" id="featuresGrid">
+                <!-- Features will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>أسعار تنافسية</h2>
+                <p>خطة واحدة شاملة لجميع المميزات</p>
+            </div>
+            <div class="pricing-card">
+                <div class="student-badge">خصم الطلاب</div>
+                <div class="price-main">1700 دج</div>
+                <div class="price-student">للطلاب: 1400 دج</div>
+                <div class="price-duration">12 شهر كامل</div>
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check-circle"></i> تفعيل رسمي على بريدك الإلكتروني</li>
+                    <li><i class="fas fa-check-circle"></i> وصول كامل لجميع الميزات</li>
+                    <li><i class="fas fa-check-circle"></i> دعم فني مستمر طوال الاشتراك</li>
+                    <li><i class="fas fa-check-circle"></i> خصوصية كاملة - حساب خاص بك</li>
+                    <li><i class="fas fa-check-circle"></i> ضمان استرجاع 80% خلال 24 ساعة</li>
+                    <li><i class="fas fa-check-circle"></i> تفعيل فوري خلال 1-24 ساعة</li>
+                </ul>
+                <a href="#contact" class="cta-button">احصل على اشتراكك الآن</a>
+            </div>
+        </div>
+    </section>
+
+  <!-- Details Section -->
+    <section id="details">
+        <div class="container">
+            <div class="section-title">
+                <h2>تفاصيل الاشتراك</h2>
+                <p>كل ما تحتاج معرفته</p>
+            </div>
+            <div class="details-grid" id="detailsGrid">
+                <!-- Details will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section id="steps">
+        <div class="container">
+            <div class="section-title">
+                <h2>كيف يعمل؟</h2>
+                <p>ثلاث خطوات بسيطة للحصول على اشتراكك</p>
+            </div>
+            <div class="steps-container" id="stepsContainer">
+                <!-- Steps will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section id="audience">
+        <div class="container">
+            <div class="section-title">
+                <h2>من هو الجمهور المستهدف؟</h2>
+                <p>Perplexity Pro مصمم خصيصاً لك</p>
+            </div>
+            <div class="audience-grid" id="audienceGrid">
+                <!-- Audience cards will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="social-proof">
+        <div class="container">
+            <div class="section-title">
+                <h2>الآلاف يثقون بنا</h2>
+                <p>انضم إلى عائلتنا من المستخدمين السعداء</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">+1000</div>
+                    <div class="stat-label">مشترك سعيد</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">معدل الرضا</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1-24</div>
+                    <div class="stat-label">ساعة للتفعيل</div>
+                </div>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">أ</div>
+                        <div class="testimonial-info">
+                            <h4>أحمد بن علي</h4>
+                            <p>طالب جامعي</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">خدمة ممتازة! تم التفعيل خلال ساعات فقط. أستخدم Perplexity Pro يومياً في أبحاثي الجامعية والنتائج رائعة.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">س</div>
+                        <div class="testimonial-info">
+                            <h4>سارة محمد</h4>
+                            <p>صانعة محتوى</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">أفضل استثمار لعملي! التواصل السريع والدعم المستمر جعل التجربة سلسة تماماً.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">خ</div>
+                        <div class="testimonial-info">
+                            <h4>خالد العمري</h4>
+                            <p>مطور برمجيات</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">السعر ممتاز والخدمة احترافية. أنصح بها بشدة!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>الأسئلة الشائعة</h2>
+                <p>إجابات لكل أسئلتك</p>
+            </div>
+            <div class="faq-container" id="faqContainer">
+                <!-- FAQ items will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>تواصل معنا</h2>
+                <p>نحن هنا لمساعدتك</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact">
+                    <h3>أرسل رسالة</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">الاسم</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subscription-type">نوع الاشتراك</label>
+                            <select id="subscription-type" name="subscription" required>
+                                <option value="">اختر نوع الاشتراك</option>
+                                <option value="اشتراك عام">عام - 1700 دج</option>
+                                <option value="خصم الطلاب">طلاب - 1400 دج</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">ملاحظات</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">إرسال الرسالة</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>معلومات التواصل</h3>
+                    <div class="contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <a href="https://facebook.com/redoxlox" target="_blank">@redoxlox</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <a href="https://instagram.com/redoxlox" target="_blank">@redoxlox</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:redoxlox@gmail.com">redoxlox@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">RedOx</div>
+            <div class="social-links">
+                <a href="https://facebook.com/redoxlox" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/redoxlox" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:redoxlox@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 RedOx. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+ 
+    <script>
+    // Backend Integration - Flask API
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('✅ Backend integration loaded');
+        
+        const contactForm = document.getElementById('contact-form');
+        
+        if (contactForm) {
+            console.log('✅ Contact form found');
+            
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                console.log('📤 Form submitted');
+                
+                // جمع البيانات
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subscription_type: document.getElementById('subscription-type').value,
+                    message: document.getElementById('message').value
+                };
+                
+                console.log('📦 Form data:', formData);
+                
+                // تعطيل زر الإرسال
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+                
+                try {
+                    console.log('🚀 Sending to API...');
+                    
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    console.log('📡 Response received:', response.status);
+                    
+                    const result = await response.json();
+                    console.log('📊 Result:', result);
+                    
+                    if (result.success) {
+                        console.log('✅ Success!');
+                        showNotification(result.message, 'success');
+                        contactForm.reset();
+                    } else {
+                        console.log('❌ Error:', result.message);
+                        showNotification(result.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('❌ Fetch error:', error);
+                    showNotification('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        } else {
+            console.error('❌ Contact form not found!');
+        }
+    });
+
+    function showNotification(message, type = 'success') {
+        console.log(`📢 Notification: ${type} - ${message}`);
+        
+        // إزالة الإشعارات القديمة
+        const oldNotifications = document.querySelectorAll('.notification');
+        oldNotifications.forEach(n => n.remove());
+        
+        // إنشاء إشعار جديد
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.classList.add('show'), 100);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
+    </script>
+
+    <!-- CSS للإشعارات -->
+    <style>
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        max-width: 400px;
+    }
+
+    .notification.show {
+        transform: translateX(0);
+    }
+
+    .notification.success {
+        border-right: 4px solid #4AFF6B;
+    }
+
+    .notification.success i {
+        color: #4AFF6B;
+        font-size: 1.5rem;
+    }
+
+    .notification.error {
+        border-right: 4px solid #FF4A4A;
+    }
+
+    .notification.error i {
+        color: #FF4A4A;
+        font-size: 1.5rem;
+    }
+
+    .notification span {
+        color: #333;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .notification {
+            right: 10px;
+            left: 10px;
+            max-width: none;
+        }
+    }
+    </style>
+ 
+
+<script>
+// Navbar Hide/Show on Scroll
+let lastScrollTop = 0;
+const navbar = document.getElementById('navbar');
+const scrollThreshold = 100;
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // إضافة class عند التمرير
+    if (scrollTop > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    // إخفاء/إظهار عند التمرير
+    if (scrollTop > scrollThreshold) {
+        if (scrollTop > lastScrollTop) {
+            // التمرير للأسفل - إخفاء
+            navbar.classList.add('hide');
+            navbar.classList.remove('show');
+        } else {
+            // التمرير للأعلى - إظهار
+            navbar.classList.remove('hide');
+            navbar.classList.add('show');
+        }
+    }
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}, false);
+
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.getElementById('navLinks');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+    
+    // إغلاق القائمة عند النقر على رابط
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+}
+
+// Active Link Highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinksItems = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinksItems.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+<script src="./app.js"></script>
+<script src="./backend.js"></script>
+
+<!-- قبل </body> -->
+<script src="./app.js"></script>
+<script src="./backend.js"></script>
+<script>
+// Fallback إذا scripts فشلت – أضف محتوى أساسي للأقسام الديناميكية
+document.addEventListener('DOMContentLoaded', function() {
+    // إذا featuresGrid فارغ، أضف محتوى افتراضي (من الكود في paste.txt، أو من app.js)
+    const featuresGrid = document.getElementById('featuresGrid');
+    if (featuresGrid && featuresGrid.children.length === 0) {
+        featuresGrid.innerHTML = `
+            <div class="card">
+                <i class="fas fa-brain card-icon"></i>
+                <h3>نماذج AI متقدمة</h3>
+                <p>وصول كامل لـ GPT-5، Claude، Gemini وأكثر بدون حدود.</p>
+            </div>
+            <!-- أضف المزيد من الكود في paste.txt لـ features، steps، إلخ -->
+        `;
+        console.log('📦 Dynamic content loaded as fallback');
+    }
+    // نفس لـ detailsGrid، stepsContainer، faqContainer، audienceGrid
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // دالة للانتقال إلى القسم المطلوب
+    function navigateToSection(hash) {
+        if (!hash) return;
+        
+        const target = document.querySelector(hash);
+        if (target) {
+            // Scroll سلس إلى القسم
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // أضف active للرابط في nav
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === hash) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // إذا dynamic content، حمّله (افتراضياً من app.js، لكن أضف هنا إذا لزم)
+            if (hash === '#contact') {
+                console.log('🔗 Navigated to #contact');
+                // تأكد من عرض النموذج – إذا مخفي، أظهره
+                const contactSection = document.querySelector('#contact');
+                if (contactSection) contactSection.style.display = 'block';
+            }
+            
+            console.log(`✅ Navigated to: ${hash}`);
+        } else {
+            console.warn(`⚠️ Section ${hash} not found – check ID`);
+        }
+    }
+    
+    // تحقق من الـ hash عند التحميل الأولي (يحل مشكلة #contact)
+    if (window.location.hash) {
+        setTimeout(() => navigateToSection(window.location.hash), 100);  // تأخير قصير للتحميل
+    }
+    
+    // التعامل مع تغيير الـ hash (نقر nav أو روابط أخرى)
+    window.addEventListener('hashchange', function() {
+        navigateToSection(window.location.hash);
+    });
+    
+    // ربط أزرار الـ CTA (مثل "احصل على اشتراكك") بـ #contact
+    document.querySelectorAll('a[href="#contact"], .cta-button').forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.hash = 'contact';
+                navigateToSection('#contact');
+            });
+        }
+    });
+    
+    // إذا app.js/backend.js لم يحمّلا المحتوى، أضف fallback (مثال لـ features)
+    // (أضف المزيد بناءً على الكود في paste.txt)
+});
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // دالة الانتقال السلس بدون إخفاء أي أقسام
+    function scrollToHash(hash) {
+        if (!hash) return;
+        const targetSection = document.querySelector(hash);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setActiveNavLink(hash);
+            console.log('✅ Navigated to:', hash);
+        }
+    }
+    function setActiveNavLink(hash) {
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            }
+        });
+    }
+    // تحقق من الـ hash عند تحميل الصفحة لأول مرة
+    if (window.location.hash) {
+        setTimeout(() => scrollToHash(window.location.hash), 150);
+    }
+    // عند تغيير الـ hash بالروابط
+    window.addEventListener('hashchange', function() {
+        scrollToHash(window.location.hash);
+    });
+    // عند الضغط على زر أو رابط داخلي
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            if (hash.length > 1 && document.querySelector(hash)) {
+                e.preventDefault();
+                window.location.hash = hash;
+                scrollToHash(hash);
+            }
+        });
+    });
+});
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
